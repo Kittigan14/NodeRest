@@ -1,4 +1,4 @@
 cd ROOT
 killall -9 node
 npm install
-nohup node src/index.js > runerror.log2>&1 &
+nohup node index.js > runerror.log 2>&1 &
