@@ -160,4 +160,4 @@ app.delete('/books/:id', (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port (localhost:${port})...`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));
