@@ -1,6 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+
 
 mongoose.connect(
     "mongodb://admin:YLSqnl55798@node58184-sxdx2003.proen.app.ruk-com.cloud:11915",
@@ -8,7 +9,7 @@ mongoose.connect(
         useNewUrlParser: true,
         useUnitfiedTopology: true,
     }
-);
+)
 
 const Book = mongoose.model("Book", {
     id: {
@@ -18,29 +19,30 @@ const Book = mongoose.model("Book", {
     },
     title: String,
     author: String,
-});
+})
 
-const app = express();
-app.use(bodyParser.json());
+const app = express()
+app.use(bodyParser.json())
 
 
 app.post('/books', async(req, res) => {
     try {
 
-        const lastBook = await Book.findOne().Sort({ id: -1 });
-        const nextId = lastBook ? lastBook.id + 1 : 1;
+        const lastBook = await Book.findOne().Sort({ id: -1 })
+        const nextId = lastBook ? lastBook.id + 1 : 1
+
 
         const book = new Book({
             id: nextId,
             ...req.body,
         })
-        await book.save();
-        res.send(book);
 
+        await book.save()
+        res.send(book)
     } catch (err) {
         res.status(500).send('Error')
     }
-});
+})
 
 
 app.get('/books', async(req, res) => {
@@ -50,7 +52,8 @@ app.get('/books', async(req, res) => {
     } catch (err) {
         res.status(500).send('Error')
     }
-});
+})
+
 
 app.get('/books/:id', async(req, res) => {
     try {
@@ -59,7 +62,7 @@ app.get('/books/:id', async(req, res) => {
     } catch (err) {
         res.status(500).send('Error')
     }
-});
+})
 
 
 app.put('/books/:id', async(req, res) => { // show create desktop
@@ -71,7 +74,8 @@ app.put('/books/:id', async(req, res) => { // show create desktop
     } catch (err) {
         res.status(500).send('Error')
     }
-});
+})
+
 
 app.delete('/books/:id', async(req, res) => {
     try {
@@ -80,7 +84,8 @@ app.delete('/books/:id', async(req, res) => {
     } catch (err) {
         res.status(500).send('Error')
     }
-});
+})
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server Started at http://localhost${port}`));
+
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server Started at http://localhost${port}`))
