@@ -4,7 +4,7 @@ const app = express()
 
 app.use(express.json())
 
-const dbUrl = 'postgres://webadmin:BGEyec88710@node58181-sxdx2003.proen.app.ruk-com.cloud:11878/Books';
+const dbUrl = 'postgre://webadmin:ZSDnoa98957@node59003-env-4702943.proen.app.ruk-com.cloud:11898/Books';
 
 const sequelize = new Sequelize(dbUrl);
 
@@ -16,11 +16,11 @@ const Book = sequelize.define("book",{
     },
     title :{
         type: Sequelize.STRING,
-        allowNull: false // have to
+        allowNull: false
     },
     author :{
         type: Sequelize.STRING,
-        allowNull: false // have to        
+        allowNull: false       
     },  
 })
 
