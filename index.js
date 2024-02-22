@@ -8,6 +8,7 @@ const dbUrl = 'postgres://webadmin:BGEyec88710@node58181-sxdx2003.proen.app.ruk-
 
 const sequelize = new Sequelize(dbUrl);
 
+
 const Book = sequelize.define("book",{
     id :{
         type: Sequelize.INTEGER,
