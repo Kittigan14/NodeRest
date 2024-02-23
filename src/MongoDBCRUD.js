@@ -1,15 +1,14 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 mongoose.connect(
     "mongodb://admin:BCDtso46416@node59004-env-4702943.proen.app.ruk-com.cloud:11922",
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true, // Fix the typo here
+        useUnifiedTopology: true,
     }
-)
+);
 
 const Book = mongoose.model("Book", {
     id: {
@@ -19,73 +18,65 @@ const Book = mongoose.model("Book", {
     },
     title: String,
     author: String,
-})
+});
 
-const app = express()
-app.use(bodyParser.json())
+const app = express();
+app.use(bodyParser.json());
 
-
-app.post('/books', async(req, res) => {
+app.post('/books', async (req, res) => {
     try {
-
-        const lastBook = await Book.findOne().Sort({ id: -1 })
-        const nextId = lastBook ? lastBook.id + 1 : 1
-
+        const lastBook = await Book.findOne().sort({ id: -1 });
+        const nextId = lastBook ? lastBook.id + 1 : 1;
 
         const book = new Book({
             id: nextId,
             ...req.body,
-        })
+        });
 
-        await book.save()
-        res.send(book)
+        await book.save();
+        res.send(book);
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send('Error');
     }
-})
+});
 
-
-app.get('/books', async(req, res) => {
+app.get('/books', async (req, res) => {
     try {
-        const books = await Book.find()
-        res.send(books)
+        const books = await Book.find();
+        res.send(books);
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send('Error');
     }
-})
+});
 
-
-app.get('/books/:id', async(req, res) => {
+app.get('/books/:id', async (req, res) => {
     try {
-        const book = await Book.findOne({ id: req.params.id })
-        res.send(book)
+        const book = await Book.findOne({ id: req.params.id });
+        res.send(book);
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send('Error');
     }
-})
+});
 
-
-app.put('/books/:id', async(req, res) => { // show create desktop
+app.put('/books/:id', async (req, res) => {
     try {
         const book = await Book.findOneAndUpdate({ id: req.params.id }, req.body, {
             new: true,
-        })
-        res.send(book)
+        });
+        res.send(book);
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send('Error');
     }
-})
+});
 
-
-app.delete('/books/:id', async(req, res) => {
+app.delete('/books/:id', async (req, res) => {
     try {
-        const book = await Book.findOneAndDelete({ id: req.params.id })
-        res.send(book)
+        const book = await Book.findOneAndDelete({ id: req.params.id });
+        res.send(book);
     } catch (err) {
-        res.status(500).send('Error')
+        res.status(500).send('Error');
     }
-})
+});
 
-
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`Server Started at http://localhost${port}`))
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server Started at http://localhost:${port}`));
