@@ -4,10 +4,10 @@ const bodyParser = require('body-parser')
 
 
 mongoose.connect(
-    "mongodb://admin:YLSqnl55798@node58184-sxdx2003.proen.app.ruk-com.cloud:11915",
+    "mongodb://admin:BCDtso46416@node59004-env-4702943.proen.app.ruk-com.cloud:11922",
     {
         useNewUrlParser: true,
-        useUnitfiedTopology: true,
+        useUnifiedTopology: true, // Fix the typo here
     }
 )
 
